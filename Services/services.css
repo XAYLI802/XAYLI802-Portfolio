@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: black;
+    color: #00ff00;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+/* Glitch Text Animation */
+#glitch-text {
+    font-size: 3em;
+    font-weight: bold;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+    animation: glitch 0.3s infinite alternate, flicker 0.8s infinite;
+}
+
+/* Glitch Effect */
+@keyframes glitch {
+    0% { text-shadow: 2px 2px 5px #ff00ff, -2px -2px 5px #00ffff; }
+    25% { text-shadow: -2px -2px 5px #ff0000, 2px 2px 5px #00ff00; }
+    50% { text-shadow: 2px 2px 5px #ffff00, -2px -2px 5px #00ffff; }
+    75% { text-shadow: -2px -2px 5px #00ff00, 2px 2px 5px #ff00ff; }
+    100% { text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; }
+}
+
+/* Flicker Effect */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.service {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    p {
+        font-size: 1em;
+    }
+    .service {
+        padding: 15px;
+    }
+}
+
+/* Glitch Effect Styling */
+#glitch-text {
+    display: inline-block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
+    transition: all 0.2s;
+}
+
+/* Scroll Reveal Effect */
+.service {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.service.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
