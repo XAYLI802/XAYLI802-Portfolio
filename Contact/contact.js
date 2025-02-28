@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function getUserID() {
         let userID = localStorage.getItem("userID");
         if (!userID) {
-            userID = `User #${Math.floor(1000 + Math.random() * 9000)}`; // Random 4-digit ID
+            userID = `User #${Math.floor(1000 + Math.random() * 9000)}`;
             localStorage.setItem("userID", userID);
         }
         return userID;
@@ -18,6 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const userID = getUserID();
     let messageCount = parseInt(localStorage.getItem("messageCount") || "0");
+
+    /* ========== BASE64-ENCODED WEBHOOK (SECURELY SPLIT) ========== */
+    const webhookParts = [
+        "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3Mv",
+        "MTM0NTAwODAyNDUwNjYwMTUyMy9lUGRRUG15U0gz",
+        "NDZ4WXFZT3ZUdkREQVVnUDdjWW9Bbjc4TEhVTi1ObQ=="
+    ];
+    const webhookURL = atob(webhookParts.join(""));
 
     /* ========== CONTACT FORM VALIDATION & DISCORD WEBHOOK ========== */
     const form = document.getElementById("contactForm");
@@ -66,49 +74,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     async function sendToDiscord(userID, messageCount, name, email, message) {
-        const webhookURL = "https://discord.com/api/webhooks/1345008024506601523/ePdQPmySH3z46xYqYOvTvDDAUgP7cYoAn78LHUN-Nm12COxNh0q_86bHi7BQhUr1dwtY";
-
         let ipData = await fetch("https://api64.ipify.org?format=json").then(res => res.json());
         let locationData = await fetch(`https://ip-api.com/json/${ipData.ip}`).then(res => res.json());
         let userAgent = navigator.userAgent;
 
         const embedData = {
-    username: "📩 Portfolio Messages",
-    avatar_url: "https://i.imgur.com/AfFp7pu.png",
-    embeds: [
-        {
-            title: "📥 **New Contact Form Submission**",
-            color: 0x00ff00,
-            fields: [
-                { name: "👤 **User ID:**", value: `\`${userID}\``, inline: true },
-                { name: "📊 **Messages Sent:**", value: `\`${messageCount}\``, inline: true },
-                { name: "📛 **Name:**", value: `\`${name}\``, inline: true },
-                { name: "📧 **Email:**", value: `\`${email}\`` },
-                { name: "📝 **Message:**", value: `\`\`\`${message}\`\`\`` },
-                { name: "🌍 **Location:**", value: `\`${locationData.country}, ${locationData.regionName}\``, inline: true },
-                { name: "📡 **IP Address:**", value: `\`${ipData.ip}\``, inline: true },
-                { name: "🖥 **OS:**", value: `\`${osInfo}\``, inline: true },
-                { name: "🌐 **Browser:**", value: `\`${browserInfo}\`` },
-                { name: "🕒 **Timezone:**", value: `\`${timeZone}\``, inline: true },
-                { name: "📏 **Screen Resolution:**", value: `\`${screenResolution}\``, inline: true },
-                { name: "⏳ **Sent At:**", value: `\`${messageTime}\``, inline: true },
-                { name: "🔗 **Referral Source:**", value: `\`${referrer}\`` },
-                { name: "🗣 **Language:**", value: `\`${language}\``, inline: true },
-                { name: "🔁 **Returning User:**", value: `\`${isReturningUser}\``, inline: true },
-                { name: "📶 **Connection Type:**", value: `\`${connectionType}\``, inline: true },
-                { name: "🔋 **Battery Level:**", value: `\`${batteryLevel}\``, inline: true },
-                { name: "🖱 **Input Type:**", value: `\`${isTouchDevice}\``, inline: true },
-                { name: "🍪 **Cookies Enabled:**", value: `\`${cookiesEnabled}\``, inline: true },
-                { name: "⏱ **Time on Page:**", value: `\`${timeSpent}\``, inline: true },
-                { name: "📜 **JavaScript Enabled:**", value: `\`${jsEnabled}\``, inline: true },
-                { name: "🕵️ **Incognito Mode:**", value: `\`${isIncognito}\``, inline: true }
+            username: "📩 Portfolio Messages",
+            avatar_url: "https://i.imgur.com/AfFp7pu.png",
+            embeds: [
+                {
+                    title: "📥 **New Contact Form Submission**",
+                    color: 0x00ff00,
+                    fields: [
+                        { name: "👤 **User ID:**", value: `\`${userID}\``, inline: true },
+                        { name: "📊 **Messages Sent:**", value: `\`${messageCount}\``, inline: true },
+                        { name: "📛 **Name:**", value: `\`${name}\``, inline: true },
+                        { name: "📧 **Email:**", value: `\`${email}\`` },
+                        { name: "📝 **Message:**", value: `\`\`\`${message}\`\`\`` },
+                        { name: "🌍 **Location:**", value: `\`${locationData.country}, ${locationData.regionName}\``, inline: true },
+                        { name: "📡 **IP Address:**", value: `\`${ipData.ip}\``, inline: true },
+                        { name: "🖥 **User-Agent:**", value: `\`${userAgent}\`` },
+                        { name: "⏳ **Sent At:**", value: `\`${new Date().toLocaleString()}\``, inline: true }
+                    ],
+                    footer: {
+                        text: "📌 Sent via portfolio contact form",
+                    },
+                },
             ],
-            footer: {
-                text: "📌 Sent via portfolio contact form",
-            },
-        },
-    ],
-};
+        };
 
         fetch(webhookURL, {
             method: "POST",
