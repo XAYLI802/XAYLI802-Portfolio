@@ -1,4 +1,110 @@
 document.addEventListener("DOMContentLoaded", function () {
+    /* ========== USER ID & MESSAGE COUNT TRACKING ========== */
+    function getUserID() {
+        let userID = localStorage.getItem("userID");
+        if (!userID) {
+            userID = `User #${Math.floor(1000 + Math.random() * 9000)}`; // Random 4-digit ID
+            localStorage.setItem("userID", userID);
+        }
+        return userID;
+    }
+
+    function incrementMessageCount() {
+        let messageCount = parseInt(localStorage.getItem("messageCount") || "0");
+        messageCount++;
+        localStorage.setItem("messageCount", messageCount);
+        return messageCount;
+    }
+
+    const userID = getUserID();
+    let messageCount = parseInt(localStorage.getItem("messageCount") || "0");
+
+    /* ========== CONTACT FORM VALIDATION & DISCORD WEBHOOK ========== */
+    const form = document.getElementById("contactForm");
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        if (!isValidName(name)) {
+            alert("Name must be at least 3 characters long and contain only letters.");
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            alert("Enter a valid email (example@gmail.com).");
+            return;
+        }
+
+        if (!isValidMessage(message)) {
+            alert("Message must be at least 15 characters long and cannot contain URLs.");
+            return;
+        }
+
+        messageCount = incrementMessageCount();
+
+        await sendToDiscord(userID, messageCount, name, email, message);
+        alert("Message sent successfully!");
+        form.reset();
+    });
+
+    function isValidName(name) {
+        return /^[A-Za-z]{3,}$/.test(name);
+    }
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function isValidMessage(message) {
+        if (message.length < 15) return false;
+        const urlPattern = /(https?:\/\/[^\s]+)/g;
+        return !urlPattern.test(message);
+    }
+
+    async function sendToDiscord(userID, messageCount, name, email, message) {
+        const webhookURL = "https://discord.com/api/webhooks/1345008024506601523/ePdQPmySH3z46xYqYOvTvDDAUgP7cYoAn78LHUN-Nm12COxNh0q_86bHi7BQhUr1dwtY";
+
+        let ipData = await fetch("https://api64.ipify.org?format=json").then(res => res.json());
+        let locationData = await fetch(`https://ip-api.com/json/${ipData.ip}`).then(res => res.json());
+        let userAgent = navigator.userAgent;
+
+        const embedData = {
+            username: "📩 Portfolio Messages",
+            avatar_url: "https://i.imgur.com/AfFp7pu.png",
+            embeds: [
+                {
+                    title: "📥 **New Contact Form Submission**",
+                    color: 0x00ff00,
+                    fields: [
+                        { name: "👤 **User ID:**", value: `\`${userID}\``, inline: true },
+                        { name: "📊 **Messages Sent:**", value: `\`${messageCount}\``, inline: true },
+                        { name: "📛 **Name:**", value: `\`${name}\``, inline: true },
+                        { name: "📧 **Email:**", value: `\`${email}\`` },
+                        { name: "📝 **Message:**", value: `\`\`\`${message}\`\`\`` },
+                        { name: "🌍 **Location:**", value: `\`${locationData.country}, ${locationData.regionName}\``, inline: true },
+                        { name: "🖥 **User-Agent:**", value: `\`${userAgent}\`` },
+                        { name: "📡 **IP Address:**", value: `\`${ipData.ip}\``, inline: true },
+                    ],
+                    footer: {
+                        text: "📌 Sent via portfolio contact form",
+                    },
+                },
+            ],
+        };
+
+        fetch(webhookURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(embedData),
+        })
+        .then(response => console.log("Message sent."))
+        .catch(error => console.error("Error sending Message:", error));
+    }
+
     /* ========== GLITCH EFFECT ========== */
     const textElement = document.getElementById("glitch-contact");
     const originalText = "CONTACT";
@@ -27,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     setInterval(hackEffect, 10000);
-    hackEffect(); // Run once on load
+    hackEffect();
 
     /* ========== REVEAL ON SCROLL ========== */
     const contactElements = document.querySelectorAll(".contact-info, .contact-form");
@@ -42,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.addEventListener("scroll", revealOnScroll);
-    revealOnScroll(); // Run on page load
+    revealOnScroll();
 
     /* ========== MATRIX BACKGROUND EFFECT ========== */
     const canvas = document.getElementById("matrixCanvas");
@@ -80,62 +186,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     setInterval(drawMatrix, 50);
-
-    /* ========== CONTACT FORM VALIDATION & DISCORD WEBHOOK ========== */
-    const form = document.getElementById("contactForm");
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const name = document.getElementById("name").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const message = document.getElementById("message").value.trim();
-
-        if (!isValidName(name)) {
-            alert("Name must be at least 3 characters long and contain only letters.");
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            alert("Enter a valid email (example@gmail.com).");
-            return;
-        }
-
-        if (message.length < 15) {
-            alert("Message must be at least 15 characters long.");
-            return;
-        }
-
-        sendToDiscord(name, email, message);
-        alert("Message sent successfully!");
-        form.reset();
-    });
-
-    function isValidName(name) {
-        return /^[A-Za-z]{3,}$/.test(name);
-    }
-
-    function isValidEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    async function sendToDiscord(name, email, message) {
-    const webhookURL = "https://discord.com/api/webhooks/1345008024506601523/ePdQPmySH3z46xYqYOvTvDDAUgP7cYoAn78LHUN-Nm12COxNh0q_86bHi7BQhUr1dwtY";
-
-    // Fetch user's IP and browser info
-    let ipData = await fetch("https://api64.ipify.org?format=json").then(res => res.json());
-    let userAgent = navigator.userAgent;
-
-    const data = {
-        content: `**New Contact Form Submission**\n\n**Name:** ${name}\n**Email:** ${email}\n**Message:** ${message}\n\n**IP Address:** ${ipData.ip}\n**User-Agent:** ${userAgent}`
-    };
-
-    fetch(webhookURL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-    })
-    .then(response => console.log("Message sent."))
-    .catch(error => console.error("Error sending Message:", error));
-}
 });
