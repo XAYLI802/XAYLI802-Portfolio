@@ -73,28 +73,42 @@ document.addEventListener("DOMContentLoaded", function () {
         let userAgent = navigator.userAgent;
 
         const embedData = {
-            username: "📩 Portfolio Messages",
-            avatar_url: "https://i.imgur.com/AfFp7pu.png",
-            embeds: [
-                {
-                    title: "📥 **New Contact Form Submission**",
-                    color: 0x00ff00,
-                    fields: [
-                        { name: "👤 **User ID:**", value: `\`${userID}\``, inline: true },
-                        { name: "📊 **Messages Sent:**", value: `\`${messageCount}\``, inline: true },
-                        { name: "📛 **Name:**", value: `\`${name}\``, inline: true },
-                        { name: "📧 **Email:**", value: `\`${email}\`` },
-                        { name: "📝 **Message:**", value: `\`\`\`${message}\`\`\`` },
-                        { name: "🌍 **Location:**", value: `\`${locationData.country}, ${locationData.regionName}\``, inline: true },
-                        { name: "🖥 **User-Agent:**", value: `\`${userAgent}\`` },
-                        { name: "📡 **IP Address:**", value: `\`${ipData.ip}\``, inline: true },
-                    ],
-                    footer: {
-                        text: "📌 Sent via portfolio contact form",
-                    },
-                },
+    username: "📩 Portfolio Messages",
+    avatar_url: "https://i.imgur.com/AfFp7pu.png",
+    embeds: [
+        {
+            title: "📥 **New Contact Form Submission**",
+            color: 0x00ff00,
+            fields: [
+                { name: "👤 **User ID:**", value: `\`${userID}\``, inline: true },
+                { name: "📊 **Messages Sent:**", value: `\`${messageCount}\``, inline: true },
+                { name: "📛 **Name:**", value: `\`${name}\``, inline: true },
+                { name: "📧 **Email:**", value: `\`${email}\`` },
+                { name: "📝 **Message:**", value: `\`\`\`${message}\`\`\`` },
+                { name: "🌍 **Location:**", value: `\`${locationData.country}, ${locationData.regionName}\``, inline: true },
+                { name: "📡 **IP Address:**", value: `\`${ipData.ip}\``, inline: true },
+                { name: "🖥 **OS:**", value: `\`${osInfo}\``, inline: true },
+                { name: "🌐 **Browser:**", value: `\`${browserInfo}\`` },
+                { name: "🕒 **Timezone:**", value: `\`${timeZone}\``, inline: true },
+                { name: "📏 **Screen Resolution:**", value: `\`${screenResolution}\``, inline: true },
+                { name: "⏳ **Sent At:**", value: `\`${messageTime}\``, inline: true },
+                { name: "🔗 **Referral Source:**", value: `\`${referrer}\`` },
+                { name: "🗣 **Language:**", value: `\`${language}\``, inline: true },
+                { name: "🔁 **Returning User:**", value: `\`${isReturningUser}\``, inline: true },
+                { name: "📶 **Connection Type:**", value: `\`${connectionType}\``, inline: true },
+                { name: "🔋 **Battery Level:**", value: `\`${batteryLevel}\``, inline: true },
+                { name: "🖱 **Input Type:**", value: `\`${isTouchDevice}\``, inline: true },
+                { name: "🍪 **Cookies Enabled:**", value: `\`${cookiesEnabled}\``, inline: true },
+                { name: "⏱ **Time on Page:**", value: `\`${timeSpent}\``, inline: true },
+                { name: "📜 **JavaScript Enabled:**", value: `\`${jsEnabled}\``, inline: true },
+                { name: "🕵️ **Incognito Mode:**", value: `\`${isIncognito}\``, inline: true }
             ],
-        };
+            footer: {
+                text: "📌 Sent via portfolio contact form",
+            },
+        },
+    ],
+};
 
         fetch(webhookURL, {
             method: "POST",
