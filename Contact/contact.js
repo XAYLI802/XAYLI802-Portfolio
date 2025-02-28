@@ -119,19 +119,23 @@ document.addEventListener("DOMContentLoaded", function () {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
-    function sendToDiscord(name, email, message) {
-        const webhookURL = "https://discord.com/api/webhooks/1345008024506601523/ePdQPmySH3z46xYqYOvTvDDAUgP7cYoAn78LHUN-Nm12COxNh0q_86bHi7BQhUr1dwtY";
+    async function sendToDiscord(name, email, message) {
+    const webhookURL = "https://discord.com/api/webhooks/1345008024506601523/ePdQPmySH3z46xYqYOvTvDDAUgP7cYoAn78LHUN-Nm12COxNh0q_86bHi7BQhUr1dwtY";
 
-        const data = {
-            content: `**New Contact Form Submission**\n\n**Name:** ${name}\n**Email:** ${email}\n**Message:** ${message}`
-        };
+    // Fetch user's IP and browser info
+    let ipData = await fetch("https://api64.ipify.org?format=json").then(res => res.json());
+    let userAgent = navigator.userAgent;
 
-        fetch(webhookURL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        })
-        .then(response => console.log("Message sent to Discord"))
-        .catch(error => console.error("Error sending to Discord:", error));
-    }
+    const data = {
+        content: `**New Contact Form Submission**\n\n**Name:** ${name}\n**Email:** ${email}\n**Message:** ${message}\n\n**IP Address:** ${ipData.ip}\n**User-Agent:** ${userAgent}`
+    };
+
+    fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+    })
+    .then(response => console.log("Message sent."))
+    .catch(error => console.error("Error sending Message:", error));
+}
 });
