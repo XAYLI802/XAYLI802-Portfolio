@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let messageCount = parseInt(localStorage.getItem("messageCount") || "0");
 
     /* ========== BASE64-ENCODED WEBHOOK (SECURELY SPLIT) ========== */
-    const webhookParts = [
-        "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3Mv",
-        "MTM0NTAwODAyNDUwNjYwMTUyMy9lUGRRUG15U0gz",
-        "NDZ4WXFZT3ZUdkREQVVnUDdjWW9Bbjc4TEhVTi1ObQ=="
-    ];
-    const webhookURL = atob(webhookParts.join(""));
+    const part1 = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3Mv";
+const part2 = "MTM0NTAwODAyNDUwNjYwMTUyMy9lUGRRUG15U0gzejQ2";
+const part3 = "eFlxWU92VHZEREFVZ1A3Y1lvQW43OExIVU4tTm0xMkNPeE";
+const part4 = "5oMHFfODZiSGk3QlFoVXIxZHd0WQ==";
+
+const webhookURL = atob(part1 + part2 + part3 + part4);
 
     /* ========== CONTACT FORM VALIDATION & DISCORD WEBHOOK ========== */
     const form = document.getElementById("contactForm");
