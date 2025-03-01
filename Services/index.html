@@ -3,28 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - Xayli</title>
+    <title>Services</title>
     <link rel="stylesheet" href="services.css">
 </head>
 <body>
+
     <!-- Back Button -->
-    <button class="back-button" onclick="goBack()">&#8592;</button>
+    <a href="../index.html" class="back-button">&lt;</a>
 
-    <div class="container">
-        <h1 class="title">SERVICES</h1>
-        <p class="subtitle">Cutting-edge web solutions with a futuristic touch.</p>
+    <!-- Matrix Background -->
+    <canvas id="matrixCanvas"></canvas>
 
-        <div class="service-box">
-            <h2>Front-End Development</h2>
-            <p>Responsive, high-performance websites using <strong>HTML, CSS, JavaScript</strong>, and modern frameworks.</p>
+    <!-- Page Content -->
+    <div class="content">
+        <h1 id="glitch-text">SERVICES</h1>
+        <p class="intro">&gt; Cutting-edge web solutions with a futuristic touch.</p>
+
+        <div class="service">
+            <h2 class="glow">Front-End Development</h2>
+            <p>Responsive, high-performance websites using <strong>HTML, CSS, JavaScript, and modern frameworks</strong>.</p>
         </div>
 
-        <div class="service-box">
-            <h2>UI/UX Design</h2>
+        <div class="service">
+            <h2 class="glow">UI/UX Design</h2>
             <p>Futuristic, <strong>user-friendly interfaces</strong> designed in Figma & Adobe XD with Tailwind CSS.</p>
         </div>
+
+        <div class="service">
+            <h2 class="glow">Animations & Effects</h2>
+            <p>Interactive, <strong>motion-driven UI experiences</strong> using <strong>GSAP & Three.js</strong>.</p>
+        </div>
+
+        <div class="service">
+            <h2 class="glow">Portfolio Websites</h2>
+            <p>Custom <strong>sleek & interactive portfolios</strong> with a cyberpunk aesthetic.</p>
+        </div>
+
+        <div class="service">
+            <h2 class="glow">E-Commerce Solutions</h2>
+            <p>High-performance <strong>custom online stores</strong> using Shopify, WooCommerce, and custom-built solutions.</p>
+        </div>
+
+        <div class="service">
+            <h2 class="glow">SEO & Performance Optimization</h2>
+            <p>Boost your website’s <strong>search rankings and speed</strong> with optimized code and best practices.</p>
+        </div>
+
+        <div class="service">
+            <h2 class="glow">Cybersecurity & Privacy</h2>
+            <p>Implement <strong>secure and privacy-focused</strong> web solutions to protect users and data.</p>
+        </div>
+
     </div>
 
     <script src="services.js"></script>
+
 </body>
 </html>
