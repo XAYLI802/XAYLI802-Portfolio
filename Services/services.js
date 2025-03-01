@@ -1,58 +1,55 @@
 // Matrix Background Effect
-const canvas = document.getElementById('matrixCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("matrixCanvas");
+const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%';
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()_+-=";
 const fontSize = 16;
 const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(0);
+const drops = Array.from({ length: columns }, () => 1);
 
 function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#00FF00';
-    ctx.font = `${fontSize}px monospace`;
+    
+    ctx.fillStyle = "#00ff00";
+    ctx.font = fontSize + "px monospace";
+    
+    drops.forEach((y, i) => {
+        const text = letters.charAt(Math.floor(Math.random() * letters.length));
+        ctx.fillText(text, i * fontSize, y * fontSize);
+        
+        drops[i] = y * fontSize > canvas.height && Math.random() > 0.975 ? 0 : y + 1;
+    });
 
-    for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    requestAnimationFrame(drawMatrix);
+}
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-        }
+drawMatrix();
 
-        drops[i]++;
+// Typing Effect for Intro Text
+const typingText = document.getElementById("typing-text");
+const message = "> Cutting-edge web solutions with a futuristic touch.";
+let index = 0;
+
+function typeWriter() {
+    if (index < message.length) {
+        typingText.innerHTML += message.charAt(index);
+        index++;
+        setTimeout(typeWriter, 50);
     }
 }
 
-setInterval(drawMatrix, 50);
+window.onload = () => {
+    typeWriter();
 
-// Resize canvas on window resize
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-
-// Scroll Reveal Animation
-document.addEventListener('DOMContentLoaded', () => {
-    const services = document.querySelectorAll('.service');
-    let delay = 200;
-
+    // Fade-in effect for services
+    const services = document.querySelectorAll(".service");
     services.forEach((service, index) => {
         setTimeout(() => {
-            service.classList.add('fade-in');
-        }, delay * (index + 1));
+            service.classList.add("visible");
+        }, index * 300);
     });
-
-    // Trigger glitch effect every 10 seconds
-    const glitchText = document.getElementById('glitch-text');
-    setInterval(() => {
-        glitchText.classList.add('glitch-active');
-        setTimeout(() => {
-            glitchText.classList.remove('glitch-active');
-        }, 500);
-    }, 10000);
-});
+};
