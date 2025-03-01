@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
             window.history.back();
         });
 
-        // Ensure button stays on top
+        // Keep button fixed
         backButton.style.position = "fixed";
         backButton.style.top = "20px";
         backButton.style.left = "20px";
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-// Typewriter Effect for Subtitle
+// Typewriter Effect for Intro Text
 function typeWriterEffect(element, text, speed = 50) {
     let index = 0;
     function type() {
@@ -29,19 +29,19 @@ function typeWriterEffect(element, text, speed = 50) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    const subtitle = document.querySelector(".subtitle");
-    if (subtitle) {
-        typeWriterEffect(subtitle, "Cutting-edge web solutions with a futuristic touch.");
+    const introText = document.querySelector(".intro");
+    if (introText) {
+        typeWriterEffect(introText, "> Cutting-edge web solutions with a futuristic touch.");
     }
 });
 
 // Interactive Glow Effect on Service Boxes
-document.querySelectorAll(".service-box").forEach(box => {
-    box.addEventListener("mouseenter", () => {
-        box.style.boxShadow = "0 0 15px 5px #0f0";
+document.querySelectorAll(".service").forEach(service => {
+    service.addEventListener("mouseenter", () => {
+        service.style.boxShadow = "0 0 15px 5px #0f0";
     });
-    box.addEventListener("mouseleave", () => {
-        box.style.boxShadow = "0 0 10px 2px #0f0";
+    service.addEventListener("mouseleave", () => {
+        service.style.boxShadow = "0 0 10px 2px #0f0";
     });
 });
 
@@ -59,15 +59,17 @@ document.querySelectorAll("a[href^='#']").forEach(anchor => {
     });
 });
 
-// Matrix Background Effect (Restored)
-const canvas = document.createElement("canvas");
-document.body.appendChild(canvas);
-
+// Optimized Matrix Background Effect
+const canvas = document.getElementById("matrixCanvas");
 const ctx = canvas.getContext("2d");
 
 // Set canvas size
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 // Matrix characters
 const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
@@ -75,7 +77,7 @@ const fontSize = 16;
 const columns = Math.floor(canvas.width / fontSize);
 const drops = new Array(columns).fill(1);
 
-// Matrix animation
+// Optimized Matrix Animation
 function drawMatrix() {
     ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -94,11 +96,5 @@ function drawMatrix() {
     }
 }
 
-// Adjust canvas size on resize
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-
-// Run Matrix animation
+// Run Matrix animation with optimized performance
 setInterval(drawMatrix, 50);
