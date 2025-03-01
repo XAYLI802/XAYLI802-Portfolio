@@ -12,7 +12,6 @@ body {
     color: #00ff00;
     text-align: center;
     overflow-x: hidden;
-    position: relative;
 }
 
 /* Matrix Background */
@@ -25,79 +24,59 @@ canvas#matrixCanvas {
     z-index: -1;
 }
 
-/* Page Content */
 .content {
-    padding: 50px 20px;
+    padding: 40px 20px;
     max-width: 800px;
     margin: auto;
 }
 
-/* Header Text Animation */
-#glitch-text {
-    font-size: 3rem;
-    font-weight: bold;
-    text-shadow: 0 0 15px #00ff00;
-    margin-bottom: 10px;
-    display: inline-block;
-    white-space: nowrap;
-    position: relative;
+/* Typing Animation */
+.intro::after {
+    content: "|";
+    animation: blink 0.8s infinite;
 }
 
-/* Glitch Effect */
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Hacker Text Glitch Animation */
 @keyframes glitch {
-    0% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
-    20% { text-shadow: -2px 2px #00ff00, 2px -2px #ff0000; }
-    40% { text-shadow: 3px -3px #ff0000, -3px 3px #00ff00; }
-    60% { text-shadow: -3px -3px #00ff00, 3px 3px #ff0000; }
-    80% { text-shadow: 2px -2px #ff0000, -2px 2px #00ff00; }
-    100% { text-shadow: none; }
+    0% { content: "S3RV1CES"; }
+    20% { content: "5ERvICES"; }
+    40% { content: "S3RVICE5"; }
+    60% { content: "SERV1C3S"; }
+    80% { content: "S3RVICES"; }
+    100% { content: "SERVICES"; }
 }
 
-/* Repeat Glitch Every 10 Sec */
-.glitch-active {
-    animation: glitch 0.5s infinite alternate;
+#glitch-text::after {
+    content: "SERVICES";
+    display: inline-block;
+    animation: glitch 1s steps(5) infinite alternate, repeat-glitch 10s linear infinite;
 }
 
-/* Fade-In Text Animation */
-.fade-in-text {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 1.5s forwards ease-out;
+@keyframes repeat-glitch {
+    0%, 90% { opacity: 1; }
+    95%, 100% { opacity: 0; }
 }
 
-/* Services */
+/* Service Fade-in Animation */
 .service {
     border: 2px solid #00ff00;
     padding: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
     background: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
     box-shadow: 0 0 15px #00ff00;
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* Animation */
-.service.fade-in {
+.service.visible {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* Fade In Keyframes */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-h2 {
-    font-size: 1.5rem;
-    text-shadow: 0 0 10px #00ff00;
-}
-
-p {
-    font-size: 1rem;
-    line-height: 1.5;
 }
 
 /* Back Button */
@@ -105,14 +84,14 @@ p {
     position: fixed;
     top: 15px;
     left: 15px;
-    background: rgba(0, 255, 0, 0.8);
+    background: rgba(0, 255, 0, 0.7);
     border: none;
     color: black;
     font-size: 1.5rem;
-    padding: 10px 15px;
+    padding: 12px 18px;
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: 0 0 10px #00ff00;
+    box-shadow: 0 0 15px #00ff00;
     transition: 0.3s;
     z-index: 1000;
 }
@@ -124,12 +103,8 @@ p {
 
 /* Mobile Responsiveness */
 @media (max-width: 600px) {
-    h1 {
+    .title {
         font-size: 2.5rem;
-    }
-
-    .intro {
-        font-size: 1rem;
     }
 
     .service {
@@ -138,6 +113,6 @@ p {
 
     .back-button {
         font-size: 1.2rem;
-        padding: 8px 12px;
+        padding: 10px 15px;
     }
 }
