@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
             window.history.back();
         });
 
-        // Ensure button stays on top (z-index fix)
+        // Ensure button stays on top
         backButton.style.position = "fixed";
         backButton.style.top = "20px";
         backButton.style.left = "20px";
@@ -58,3 +58,47 @@ document.querySelectorAll("a[href^='#']").forEach(anchor => {
         }
     });
 });
+
+// Matrix Background Effect (Restored)
+const canvas = document.createElement("canvas");
+document.body.appendChild(canvas);
+
+const ctx = canvas.getContext("2d");
+
+// Set canvas size
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Matrix characters
+const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%";
+const fontSize = 16;
+const columns = Math.floor(canvas.width / fontSize);
+const drops = new Array(columns).fill(1);
+
+// Matrix animation
+function drawMatrix() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#0F0";
+    ctx.font = `${fontSize}px monospace`;
+
+    for (let i = 0; i < drops.length; i++) {
+        const text = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+        }
+        drops[i]++;
+    }
+}
+
+// Adjust canvas size on resize
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// Run Matrix animation
+setInterval(drawMatrix, 50);
