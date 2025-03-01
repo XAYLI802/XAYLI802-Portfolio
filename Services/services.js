@@ -1,47 +1,60 @@
-const canvas = document.getElementById("matrixCanvas");
-const ctx = canvas.getContext("2d");
+// Back Button Function - Always on Top
+document.addEventListener("DOMContentLoaded", function () {
+    const backButton = document.querySelector(".back-button");
+    if (backButton) {
+        backButton.addEventListener("click", function () {
+            window.history.back();
+        });
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const columns = Math.floor(canvas.width / 20);
-const rain = Array(columns).fill(1);
-
-const drawMatrix = () => {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = "#00ff00";
-    ctx.font = "18px monospace";
-
-    rain.forEach((y, index) => {
-        const text = String.fromCharCode(0x30A0 + Math.random() * 96);
-        const x = index * 20;
-        ctx.fillText(text, x, y);
-        rain[index] = y > canvas.height || Math.random() > 0.98 ? 0 : y + 20;
-    });
-};
-
-setInterval(drawMatrix, 50);
-
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+        // Ensure button stays on top (z-index fix)
+        backButton.style.position = "fixed";
+        backButton.style.top = "20px";
+        backButton.style.left = "20px";
+        backButton.style.zIndex = "9999";
+    }
 });
 
-/* Scroll Reveal Effect */
-document.addEventListener("DOMContentLoaded", () => {
-    const services = document.querySelectorAll(".service");
-
-    function revealOnScroll() {
-        services.forEach((service) => {
-            const rect = service.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.9) {
-                service.classList.add("visible");
-            }
-        });
+// Typewriter Effect for Subtitle
+function typeWriterEffect(element, text, speed = 50) {
+    let index = 0;
+    function type() {
+        if (index < text.length) {
+            element.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+        }
     }
+    element.innerHTML = ""; // Clear before starting
+    type();
+}
 
-    window.addEventListener("scroll", revealOnScroll);
-    revealOnScroll();
+document.addEventListener("DOMContentLoaded", function () {
+    const subtitle = document.querySelector(".subtitle");
+    if (subtitle) {
+        typeWriterEffect(subtitle, "Cutting-edge web solutions with a futuristic touch.");
+    }
+});
+
+// Interactive Glow Effect on Service Boxes
+document.querySelectorAll(".service-box").forEach(box => {
+    box.addEventListener("mouseenter", () => {
+        box.style.boxShadow = "0 0 15px 5px #0f0";
+    });
+    box.addEventListener("mouseleave", () => {
+        box.style.boxShadow = "0 0 10px 2px #0f0";
+    });
+});
+
+// Smooth Scroll Effect for Internal Links
+document.querySelectorAll("a[href^='#']").forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+            window.scrollTo({
+                top: target.offsetTop,
+                behavior: "smooth"
+            });
+        }
+    });
 });
