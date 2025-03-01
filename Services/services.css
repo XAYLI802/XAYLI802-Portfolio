@@ -11,12 +11,12 @@ body {
     background: black;
     color: #00ff00;
     text-align: center;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
 }
 
-/* Matrix Background Canvas */
-#matrixCanvas {
+/* Matrix Background */
+canvas#matrixCanvas {
     position: fixed;
     top: 0;
     left: 0;
@@ -25,38 +25,69 @@ body {
     z-index: -1;
 }
 
-/* Content Styling */
+/* Page Content */
 .content {
-    position: relative;
-    z-index: 10;
+    padding: 50px 20px;
     max-width: 800px;
     margin: auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8); /* Improves contrast */
-    border-radius: 10px;
 }
 
-/* Title Styling */
-h1 {
+/* Header Text Animation */
+#glitch-text {
     font-size: 3rem;
+    font-weight: bold;
     text-shadow: 0 0 15px #00ff00;
     margin-bottom: 10px;
+    display: inline-block;
+    white-space: nowrap;
+    position: relative;
 }
 
-/* Service Box */
+/* Glitch Effect */
+@keyframes glitch {
+    0% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
+    20% { text-shadow: -2px 2px #00ff00, 2px -2px #ff0000; }
+    40% { text-shadow: 3px -3px #ff0000, -3px 3px #00ff00; }
+    60% { text-shadow: -3px -3px #00ff00, 3px 3px #ff0000; }
+    80% { text-shadow: 2px -2px #ff0000, -2px 2px #00ff00; }
+    100% { text-shadow: none; }
+}
+
+/* Repeat Glitch Every 10 Sec */
+.glitch-active {
+    animation: glitch 0.5s infinite alternate;
+}
+
+/* Fade-In Text Animation */
+.fade-in-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1.5s forwards ease-out;
+}
+
+/* Services */
 .service {
     border: 2px solid #00ff00;
     padding: 20px;
-    margin: 15px 0;
-    background: rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
     box-shadow: 0 0 15px #00ff00;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-.service:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px #00ff00;
+/* Animation */
+.service.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Fade In Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h2 {
@@ -95,6 +126,10 @@ p {
 @media (max-width: 600px) {
     h1 {
         font-size: 2.5rem;
+    }
+
+    .intro {
+        font-size: 1rem;
     }
 
     .service {
