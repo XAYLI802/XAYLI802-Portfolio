@@ -29,56 +29,7 @@ window.addEventListener("resize", () => {
     canvas.height = window.innerHeight;
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    const services = document.querySelectorAll(".service");
-
-    services.forEach((service, index) => {
-        service.style.opacity = "0";
-        service.style.transform = "translateY(50px)";
-
-        setTimeout(() => {
-            service.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
-            service.style.opacity = "1";
-            service.style.transform = "translateY(0)";
-        }, index * 300); // Delay each service by 300ms
-    });
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const textElement = document.getElementById("glitch-text");
-    const originalText = "SERVICES";
-
-    function hackEffect() {
-        let hackedText = "";
-        let characters = "!@#$%^&*()_+=-{}[]|:;<>,.?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let index = 0;
-
-        function scramble() {
-            if (index < originalText.length) {
-                hackedText = originalText
-                    .split("")
-                    .map((char, i) => (i < index ? char : characters[Math.floor(Math.random() * characters.length)]))
-                    .join("");
-
-                textElement.innerHTML = hackedText;
-                index++;
-                setTimeout(scramble, 100);
-            } else {
-                textElement.innerHTML = originalText;
-            }
-        }
-
-        scramble();
-    }
-
-    // Run the effect every minute
-    setInterval(hackEffect, 10000);
-    hackEffect(); // Run once on load
-});
-
-
-
+/* Scroll Reveal Effect */
 document.addEventListener("DOMContentLoaded", () => {
     const services = document.querySelectorAll(".service");
 
@@ -91,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Run the function on scroll
     window.addEventListener("scroll", revealOnScroll);
-    revealOnScroll(); // Check on page load
+    revealOnScroll();
 });
