@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const typingText = document.querySelector(".intro.typing-animation");
 
     if (typingText) {
-        const fullText = typingText.textContent.trim(); // Get the full text
-        typingText.textContent = ""; // Clear the text to start animation
+        const fullText = typingText.textContent.trim(); // Get full text
+        typingText.textContent = ""; // Clear text for animation
 
         let index = 0;
 
@@ -49,8 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (index < fullText.length) {
                 typingText.innerHTML += fullText[index];
 
-                // Add a line break if a word is too long on smaller screens
-                if (index > 0 && fullText[index] === " " && typingText.offsetWidth > window.innerWidth * 0.9) {
+                // Check if text is overflowing and manually add a line break
+                if (typingText.scrollWidth > typingText.clientWidth) {
                     typingText.innerHTML += "<br>";
                 }
 
