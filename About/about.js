@@ -40,3 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         el.style.opacity = "1";
     });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const typingText = document.querySelector(".typing-animation");
+    typingText.style.width = typingText.scrollWidth + "px"; // Adjust width dynamically
+});
