@@ -1,3 +1,4 @@
+// Matrix Effect
 const canvas = document.getElementById("matrixCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -31,4 +32,11 @@ setInterval(drawMatrix, 50);
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+});
+
+// Fade-in Effect for Sections
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".fade-in").forEach(el => {
+        el.style.opacity = "1";
+    });
 });
