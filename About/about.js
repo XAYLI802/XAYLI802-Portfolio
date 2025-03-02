@@ -43,5 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", function() {
     const typingText = document.querySelector(".typing-animation");
-    typingText.style.width = typingText.scrollWidth + "px"; // Adjust width dynamically
+    if (typingText) {
+        typingText.style.width = typingText.scrollWidth + "px"; // Dynamically adjust width
+    }
 });
