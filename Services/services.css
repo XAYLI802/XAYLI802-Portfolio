@@ -51,15 +51,9 @@ canvas#matrixCanvas {
     100% { content: "SERVICES"; }
 }
 
-#glitch-text::after {
-    content: "SERVICES";
+#glitch-text {
     display: inline-block;
-    animation: glitch 1s steps(5) infinite alternate, repeat-glitch 10s linear infinite;
-}
-
-@keyframes repeat-glitch {
-    0%, 90% { opacity: 1; }
-    95%, 100% { opacity: 0; }
+    position: relative;
 }
 
 /* Service Fade-in Animation */
