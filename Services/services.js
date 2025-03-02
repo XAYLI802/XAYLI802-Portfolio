@@ -55,15 +55,3 @@ window.onload = () => {
 };
 
 
-// Hacker Glitch Effect for "SERVICES"
-const glitchText = document.getElementById("glitch-text");
-const glitchVariants = ["S3RV1CES", "5ERvICES", "S3RVICE5", "SERV1C3S", "S3RVICES", "SERVICES"];
-let glitchIndex = 0;
-
-function glitchEffect() {
-    glitchText.innerText = glitchVariants[glitchIndex];
-    glitchIndex = (glitchIndex + 1) % glitchVariants.length;
-}
-
-setInterval(glitchEffect, 150); // Faster glitch effect
-setInterval(() => { glitchIndex = 0; }, 10000); // Reset every 10s
