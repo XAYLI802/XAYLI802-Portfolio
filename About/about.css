@@ -119,5 +119,5 @@ h1, h2 {
 .fade-in {
     opacity: 0; /* Hide text initially */
     animation: fadeIn 2s ease-in-out forwards;
-    animation-delay: 1s; /* Delay ensures smooth appearance */
+    animation-delay: 0.5s; /* Delay ensures smooth appearance */
 }
