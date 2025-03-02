@@ -182,7 +182,7 @@ body {
     animation: hacked 0.30s infinite alternate;
 }
 
-.back-button {
+.back-button. {
     position: fixed;
     top: 20px;
     left: 20px;
@@ -205,7 +205,7 @@ body {
     z-index: 9999; /* Ensure it's always on top */
 }
 
-.back-button:hover {
+.back-button.:hover {
     background: #0f0;
     color: #000;
     text-shadow: none;
