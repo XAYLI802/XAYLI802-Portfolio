@@ -40,9 +40,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const typingText = document.querySelector(".intro.typing-animation");
 
     if (typingText) {
-        // Wait for the page to fully load before starting the typing effect
-        setTimeout(() => {
-            typingText.style.maxWidth = typingText.scrollWidth + "px"; // Expands text dynamically
-        }, 300); // Small delay ensures correct animation timing
+        const fullText = typingText.textContent.trim(); // Get the full text
+        typingText.textContent = ""; // Clear the text to start animation
+
+        let index = 0;
+
+        function typeCharacter() {
+            if (index < fullText.length) {
+                typingText.innerHTML += fullText[index];
+
+                // Add a line break if a word is too long on smaller screens
+                if (index > 0 && fullText[index] === " " && typingText.offsetWidth > window.innerWidth * 0.9) {
+                    typingText.innerHTML += "<br>";
+                }
+
+                index++;
+                setTimeout(typeCharacter, 50); // Adjust typing speed
+            } else {
+                typingText.style.borderRight = "none"; // Remove blinking cursor after typing
+            }
+        }
+
+        setTimeout(typeCharacter, 300); // Delay before typing starts
     }
 });
