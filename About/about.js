@@ -36,9 +36,13 @@ window.addEventListener("resize", () => {
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    const typingText = document.querySelector(".typing-animation");
+document.addEventListener("DOMContentLoaded", function () {
+    const typingText = document.querySelector(".intro.typing-animation");
+
     if (typingText) {
-        typingText.style.width = typingText.scrollWidth + "px"; // Dynamically adjust width
+        // Wait for the page to fully load before starting the typing effect
+        setTimeout(() => {
+            typingText.style.maxWidth = typingText.scrollWidth + "px"; // Expands text dynamically
+        }, 300); // Small delay ensures correct animation timing
     }
 });
