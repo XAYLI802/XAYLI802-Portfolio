@@ -183,31 +183,32 @@ body {
 }
 
 #back-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    color: #0f0;
-    text-decoration: none;
-    text-shadow: 0 0 8px #0f0, 0 0 16px #0f0;
-    border: 2px solid #0f0;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 0 8px #0f0, 0 0 16px #0f0 inset;
-    transition: all 0.3s ease-in-out;
-    z-index: 9999; /* Ensure it's always on top */
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    width: 50px !important;
+    height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-size: 24px !important;
+    font-weight: bold !important;
+    color: #0f0 !important;
+    text-decoration: none !important;
+    text-shadow: 0 0 8px #0f0, 0 0 16px #0f0 !important;
+    border: 2px solid #0f0 !important;
+    border-radius: 50% !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 0 0 8px #0f0, 0 0 16px #0f0 inset !important;
+    transition: all 0.3s ease-in-out !important;
+    z-index: 99999 !important;
 }
+
 #back-button:hover {
-    background: #0f0;
-    color: #000;
-    text-shadow: none;
-    box-shadow: 0 0 12px #0f0, 0 0 24px #0f0, 0 0 48px #0f0;
-    transform: scale(1.1);
+    background: #0f0 !important;
+    color: #000 !important;
+    text-shadow: none !important;
+    box-shadow: 0 0 12px #0f0, 0 0 24px #0f0, 0 0 48px #0f0 !important;
+    transform: scale(1.1) !important;
 }
