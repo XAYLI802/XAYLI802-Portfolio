@@ -41,23 +41,40 @@ h1, h2 {
     margin-bottom: 10px;
 }
 
-.intro {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 15px;
+/* 🔥 Fixed Typing Animation */
+.intro.typing-animation {
+    display: inline-block; /* Allows text expansion */
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #0f0;
+    max-width: 0; /* Start hidden */
+    animation: typing 3s steps(50, end) forwards, blink 0.5s infinite;
 }
 
-.skills, .tools {
-    text-align: left;
-    padding: 10px;
-    font-size: 12px;
+/* Typing Effect */
+@keyframes typing {
+    from { max-width: 0; }
+    to { max-width: 100%; } /* Expands to full size */
 }
 
-.skills li {
-    margin-bottom: 10px;
+/* Blinking Cursor */
+@keyframes blink {
+    50% { border-color: transparent; }
 }
 
-/* Ensure Back Button Stays on Top */
+/* Fade-in Effect */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
+    animation-delay: 0.5s;
+}
+
+/* 🟢 Fixed Back Button */
 .back-button {
     position: fixed;
     top: 20px;
@@ -87,37 +104,4 @@ h1, h2 {
     text-shadow: none;
     box-shadow: 0 0 12px #0f0, 0 0 24px #0f0, 0 0 48px #0f0;
     transform: scale(1.1);
-}
-
-.typing-animation {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid #0f0;
-    width: 0;  /* Start from 0 */
-    animation: typing 3s steps(40, end) forwards, blink 0.7s infinite;
-}
-
-/* Typing Animation Keyframes */
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; } /* Ensures it expands fully */
-}
-
-/* Blink Cursor */
-@keyframes blink {
-    50% { border-color: transparent; }
-}
-
-
-/* Fade-in Effect */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.fade-in {
-    opacity: 0; /* Hide text initially */
-    animation: fadeIn 1.5s ease-in-out forwards;
-    animation-delay: 0.5s; /* Delay ensures smooth appearance */
 }
