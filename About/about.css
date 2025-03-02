@@ -1,84 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  background: black;
-  color: #00ff00;
-  font-family: 'Press Start 2P', sans-serif;
-  text-align: center;
-  overflow: hidden;
+    background: black;
+    color: #00ff00;
+    font-family: 'Orbitron', monospace;
+    text-align: center;
+    overflow: hidden;
 }
 
 canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 .content {
-  position: relative;
-  z-index: 1;
-  max-width: 90%;
-  margin: 20px auto;
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
-  box-shadow: 0 0 15px #00ff00;
+    position: relative;
+    z-index: 1;
+    max-width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 15px #00ff00;
+    animation: fadeIn 1s ease-in-out;
 }
 
 h1, h2 {
-  text-transform: uppercase;
-  text-shadow: 0 0 10px #00ff00;
-  margin-bottom: 10px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px #00ff00;
+    margin-bottom: 10px;
 }
 
 .intro {
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 15px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
 }
 
-.skills {
-  list-style: none;
-  text-align: left;
-  padding: 10px;
-  font-size: 12px;
+.skills, .tools {
+    text-align: left;
+    padding: 10px;
+    font-size: 12px;
 }
 
 .skills li {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
-.tools {
-  font-size: 12px;
-  text-align: left;
-  margin-top: 15px;
-  padding: 10px;
-}
-
-@media screen and (max-width: 768px) {
-  body {
-    font-size: 10px;
-  }
-
-  .content {
-    max-width: 95%;
-    padding: 15px;
-  }
-
-  .intro, .skills, .tools {
-    font-size: 10px;
-  }
-}
-
+/* Back Button */
 .back-button {
     position: fixed;
     top: 20px;
@@ -91,12 +70,12 @@ h1, h2 {
     font-family: 'Orbitron', sans-serif;
     font-size: 24px;
     font-weight: bold;
-    color: #0f0; /* Neon green */
+    color: #0f0;
     text-decoration: none;
-    text-shadow: 0 0 8px #0f0, 0 0 16px #0f0, 0 0 32px #0f0;
+    text-shadow: 0 0 8px #0f0, 0 0 16px #0f0;
     border: 2px solid #0f0;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 8px #0f0, 0 0 16px #0f0 inset;
     transition: all 0.3s ease-in-out;
 }
@@ -107,4 +86,31 @@ h1, h2 {
     text-shadow: none;
     box-shadow: 0 0 12px #0f0, 0 0 24px #0f0, 0 0 48px #0f0;
     transform: scale(1.1);
+}
+
+/* Typing Animation */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.typing-animation {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #0f0;
+    width: 0;
+    animation: typing 3s steps(40, end) forwards;
+}
+
+/* Fade-in Effect */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1.5s ease-in-out forwards;
+    animation-delay: 0.5s;
 }
