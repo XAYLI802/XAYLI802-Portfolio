@@ -57,7 +57,7 @@ h1, h2 {
     margin-bottom: 10px;
 }
 
-/* Back Button */
+/* Ensure Back Button Stays on Top */
 .back-button {
     position: fixed;
     top: 20px;
@@ -78,6 +78,7 @@ h1, h2 {
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 8px #0f0, 0 0 16px #0f0 inset;
     transition: all 0.3s ease-in-out;
+    z-index: 9999; /* Ensure it's always on top */
 }
 
 .back-button:hover {
@@ -88,20 +89,28 @@ h1, h2 {
     transform: scale(1.1);
 }
 
-/* Typing Animation */
-@keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
+/* Typing Animation Fix */
 .typing-animation {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
     border-right: 2px solid #0f0;
-    width: 0;
-    animation: typing 3s steps(40, end) forwards;
+    width: 100%;  /* Ensure full width */
+    max-width: 100%; /* Prevent cutting */
+    animation: typing 3s steps(50, end) forwards, blink 0.5s infinite;
 }
+
+/* Blink Cursor */
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Typing Animation Keyframes */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
 
 /* Fade-in Effect */
 @keyframes fadeIn {
