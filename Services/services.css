@@ -41,6 +41,7 @@ canvas#matrixCanvas {
 }
 
 /* Hacker Text Glitch Animation */
+
 @keyframes glitch {
     0% { content: "S3RV1CES"; }
     20% { content: "5ERvICES"; }
