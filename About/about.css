@@ -89,21 +89,19 @@ h1, h2 {
     transform: scale(1.1);
 }
 
-/* Typing Animation Fix */
 .typing-animation {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
     border-right: 2px solid #0f0;
     width: 0;  /* Start from 0 */
-    max-width: fit-content; /* Adjust to actual text width */
     animation: typing 3s steps(40, end) forwards, blink 0.7s infinite;
 }
 
 /* Typing Animation Keyframes */
 @keyframes typing {
     from { width: 0; }
-    to { width: 100%; } /* Ensures it grows dynamically */
+    to { width: 100%; } /* Ensures it expands fully */
 }
 
 /* Blink Cursor */
