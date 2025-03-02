@@ -34,12 +34,7 @@ window.addEventListener("resize", () => {
     canvas.height = window.innerHeight;
 });
 
-// Fade-in Effect for Sections
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".fade-in").forEach(el => {
-        el.style.opacity = "1";
-    });
-});
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const typingText = document.querySelector(".typing-animation");
